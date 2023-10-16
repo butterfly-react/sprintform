@@ -8,4 +8,27 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Expense {
+  id        Int      @id @default(autoincrement())
+  summary   String   @db.VarChar(255)
+  category  Category @default(HOUSING)
+  sum       Int
+  currency  String
+  paid      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Category {
+  HOUSING
+  TRAVEL
+  FOOD
+  UTILITIES
+  INSURANCE
+  HEALTHCARE
+  FINANCIAL
+  LIFESTYLE
 }
