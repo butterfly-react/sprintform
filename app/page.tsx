@@ -1,8 +1,13 @@
 import Image from 'next/image'
+import DashboardPage from './dashboard/page'
 
-export default function Home() {
+
+
+export default async function Home() {
+
   return (
-    <main>
+    <main className='p-5'>
+      <DashboardPage />
 
     </main>
   )

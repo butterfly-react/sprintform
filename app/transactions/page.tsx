@@ -1,11 +1,22 @@
 import React from 'react'
-import { Button} from '@radix-ui/themes'
+import Transaction from './Transaction'
 
-type Props = {}
+const fetchTransactions = async () => {
+  const res = await fetch('https://development.sprintform.com/transactions.json')
+  const expenses: Expense [] = await res.json()
+  return expenses
+}
 
-function TransactionsPage({}: Props) {
+
+async function TransactionsPage() {
+
+  const expenses: Expense [] = await fetchTransactions()
+
   return (
-    <div>TPage</div>
+    <main>
+      <Transaction expenses={expenses} />
+  
+  </main>
   )
 }
 
