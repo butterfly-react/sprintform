@@ -1,6 +1,6 @@
 "use client";
 import { Button, TextField } from "@radix-ui/themes";
-import React from "react";
+import React, { useState} from "react";
 import SimpleMDE from 'react-simplemde-editor'
 import 'easymde/dist/easymde.min.css'
 import { useForm, Controller } from 'react-hook-form'
@@ -24,11 +24,18 @@ function NewExpensePage({}: Props) {
 
   const router = useRouter()
 
+  const [error, setError] = useState('')
+
   return (
     <form className="max-w-xl space-y-3" 
     onSubmit={handleSubmit(async (data) => {
-      await axios.post('/api/transactions', data)
-      router.push('/dashboard')
+      try{
+
+        await axios.post('/api/transactions', data)
+        router.push('/dashboard')
+      }catch(err){
+        setError('An unexpected error occured')
+      }
     })}>
 
 <div className="relative">
@@ -51,7 +58,7 @@ function NewExpensePage({}: Props) {
         <TextField.Input placeholder="Currency" {...register('currency')}/>
       </TextField.Root>
       <TextField.Root>
-        <TextField.Input placeholder="Sum" {...register('sum')}/>
+        <input className="border border-gray-300 pl-2" type='number' placeholder="Sum" {...register('sum')}/>
       </TextField.Root>
       <Controller name='summary'
       control={control} render={({ field }) =>  <SimpleMDE placeholder="Summary" {...field}></SimpleMDE>}/>
