@@ -1,21 +1,15 @@
 
 import { NextRequest, NextResponse } from 'next/server';
-import {z} from 'zod'
 import prisma from '@/prisma/client';
 import { getServerSession } from 'next-auth';
 import authOptions from '../../auth/authOptions';
+import { expenseSchema } from '../../expenseSchema';
 
 
 
 
 const DATA_SOURCE_URL = "https://development.sprintform.com/transactions.json"
-const expenseSchema = z.object({
-
-    summary: z.string().min(1, 'Summary is required').max(255),
-    category: z.string().min(1, 'Category is required'),
-    sum: z.string().min(1, 'Sum is required')
-  })
-  export async function GET() {
+export async function GET() {
 
       const res = await fetch(DATA_SOURCE_URL)
   
