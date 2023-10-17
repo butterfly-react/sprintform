@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 
 type Props = {
-  expenses: Expense[];
+  expenses?: Expense[];
 };
 
-function Transaction({ expenses }: Props) {
+function Transaction({ expenses=[] }: Props) {
   const [searchTerm, setSearchTerm] = useState('');
 
 
