@@ -6,7 +6,7 @@ import Transaction from "../transactions/Transaction";
 type Props = {};
 
 const fetchExpenses = async () => {
-  const res = await fetch("https://expense-tracker-eight-mu.vercel.app/api/transactions", { next: { revalidate: 30}});
+  const res = await fetch("http://localhost:3000/api/transactions", { next: { revalidate: 10}});
   const expenses: Expense[] = await res.json();
   return expenses;
 };

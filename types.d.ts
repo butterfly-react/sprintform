@@ -1,6 +1,6 @@
 type Expense = {
 
-    id: string,
+    id: string | number,
     summary: string,
     category: string,
     currency: string,

@@ -1,13 +1,38 @@
 'use client'
 import React, { useState } from 'react';
+import { FaHome, FaPlane, FaUtensils, FaBolt, FaShieldAlt, FaBriefcase, FaHeart, FaWallet, FaTshirt } from 'react-icons/fa';
+
+enum Category {
+  HOUSING,
+  TRAVEL,
+  FOOD,
+  UTILITIES,
+  INSURANCE,
+  HEALTHCARE,
+  FINANCIAL,
+  LIFESTYLE,
+  CLOTHING
+}
+
 
 type Props = {
   expenses?: Expense[];
 };
 
-function Transaction({ expenses=[] }: Props) {
-  const [searchTerm, setSearchTerm] = useState('');
+const categoryIcons: Record<Category, JSX.Element> = {
+  [Category.HOUSING]: <FaHome />,
+  [Category.TRAVEL]: <FaPlane />,
+  [Category.FOOD]: <FaUtensils />,
+  [Category.UTILITIES]: <FaBolt />,
+  [Category.INSURANCE]: <FaShieldAlt />,
+  [Category.HEALTHCARE]: <FaBriefcase />,
+  [Category.FINANCIAL]: <FaHeart />,
+  [Category.LIFESTYLE]: <FaWallet />,
+  [Category.CLOTHING]: <FaTshirt />
+};
 
+function Transaction({ expenses = [] }: Props) {
+  const [searchTerm, setSearchTerm] = useState('');
 
   const filteredExpenses = expenses.filter((expense) =>
     expense.summary.toLowerCase().includes(searchTerm.toLowerCase())
@@ -27,7 +52,12 @@ function Transaction({ expenses=[] }: Props) {
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filteredExpenses.map((expense) => (
+          
           <div key={expense.id} className="bg-white rounded-lg shadow-lg p-4">
+            <div className="text-blue-500">
+              {/* @ts-ignore */}
+              {(categoryIcons as Record<Category, JSX.Element>)[Category[expense.category.toUpperCase()]]}
+            </div>
             <h2 className="text-xl font-semibold">{expense.summary}</h2>
             <p className="text-gray-600">Category: {expense.category}</p>
             <p className="text-gray-600">
@@ -44,3 +74,5 @@ function Transaction({ expenses=[] }: Props) {
 }
 
 export default Transaction;
+
+
